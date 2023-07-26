@@ -1,6 +1,7 @@
 package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,8 @@ public class LogoutServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String hash = BCrypt.hashpw(password, BCrypt.gensalt());
+        System.out.println(hash);
 
         String username = null;
         if (DaoFactory.getUsersDao().findByUsername(username) != null) {
