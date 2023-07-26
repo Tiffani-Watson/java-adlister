@@ -21,6 +21,11 @@ public class LogoutServlet extends HttpServlet {
         String hash = BCrypt.hashpw(password, BCrypt.gensalt());
         System.out.println(hash);
 
+        boolean passwordsMatch = BCrypt.checkpw("password", hash);
+        System.out.println(passwordsMatch); // false
+
+        passwordsMatch = BCrypt.checkpw("password123", hash);
+        System.out.println(passwordsMatch); // true
         String username = null;
         if (DaoFactory.getUsersDao().findByUsername(username) != null) {
             try {
